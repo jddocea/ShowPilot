@@ -11,7 +11,7 @@
 # ============================================================
 
 # ---------- Stage 1: build native dependencies ----------
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 
 # Build tools for better-sqlite3 / bcrypt native compilation
 RUN apk add --no-cache python3 make g++
@@ -34,7 +34,7 @@ RUN if [ -f package-lock.json ]; then \
     fi
 
 # ---------- Stage 2: runtime ----------
-FROM node:20-alpine
+FROM node:24-alpine
 
 # Minimal runtime deps. tini is a tiny init that handles signals correctly —
 # without it, SIGTERM from `docker stop` doesn't reach the Node process
